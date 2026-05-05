@@ -37,7 +37,7 @@ export default function CategoryBar({ data = [], filter, setFilter }) {
         },
       ]}
       yAxis={[{ scaleType: "band", data: yLabels }]}
-      margin={{ top: 20, bottom: 30, left: 90, right: 20 }}
+      margin={{ top: 20, bottom: 30, left: 30, right: 30 }}
       onItemClick={handleItemClick}
       sx={{
         "& .MuiBarElement-root": { cursor: "pointer" },

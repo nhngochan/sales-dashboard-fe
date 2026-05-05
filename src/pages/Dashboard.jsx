@@ -79,7 +79,7 @@ export default function Dashboard() {
             })
           }
         >
-          Reset Filters
+          Reset
         </Button>
       </Box>
 
@@ -114,7 +114,7 @@ export default function Dashboard() {
       </Grid>
 
       {/* LINE CHART */}
-      <Grid item xs={7}>
+      <Grid item xs={5}>
         <Box sx={{ bgcolor: "background.paper", p: 3, borderRadius: 2 }}>
           <Typography
             variant="subtitle1"
@@ -122,7 +122,7 @@ export default function Dashboard() {
             mb={1}
             color="textSecondary"
           >
-            Revenue Trend
+            Revenue Trending
           </Typography>
           <RevenueChart data={trend} filter={filter} setFilter={setFilter} />
         </Box>

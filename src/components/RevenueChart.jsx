@@ -46,7 +46,7 @@ export default function RevenueChart({ data = [], filter, setFilter }) {
       xAxis={[{ scaleType: 'point', data: xLabels }]}
       yAxis={[{ valueFormatter: (v) => `$${v >= 1000 ? (v / 1000).toFixed(0) + 'K' : v}` }]}
       onMarkClick={handleMarkClick}
-      margin={{ top: 20, bottom: 30, left: 60, right: 20 }}
+      margin={{ top: 20, bottom: 30, left: 30, right: 30 }}
       sx={{
         '& .MuiLineElement-root': { cursor: 'pointer' },
         '& .MuiMarkElement-root': { cursor: 'pointer' },

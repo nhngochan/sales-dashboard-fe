@@ -53,6 +53,7 @@ export default function CountryTable({ filter, setFilter }) {
       loading={isLoading}
       autoHeight
       onRowClick={handleRowClick}
+      hideFooter={true}
       sx={{ cursor: "pointer", border: "none" }}
     />
   );
