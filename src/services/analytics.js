@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "./salesApi";
 
 // OVERVIEW
 export const getOverview = async () => {

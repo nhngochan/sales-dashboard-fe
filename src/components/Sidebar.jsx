@@ -16,14 +16,14 @@ export default function Sidebar() {
 
   const menu = [
     {
-      label: "Executive",
-      icon: <DashboardIcon />,
+      label: "Customer & Product",
+      icon: <PeopleIcon />,
       path: "/",
     },
     {
-      label: "Customer & Product",
-      icon: <PeopleIcon />,
-      path: "/customer-product",
+      label: "Executive",
+      icon: <DashboardIcon />,
+      path: "/sales",
     },
   ];
 

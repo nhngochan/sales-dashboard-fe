@@ -1,0 +1,363 @@
+@import "tailwindcss";
+
+/* ── Reset ──────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: #f3f4f6;
+  color: #1a1a2e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ── Design Tokens ──────────────────────────────────────── */
+:root {
+  --teal-accent: #2dd4bf;
+  --dark-bg: #1a1a2e;
+  --light-bg: #f3f4f6;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --card-radius: 12px;
+  --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --gap: 20px;
+  --padding: 20px;
+}
+
+/* ── Reusable Card ──────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: none;
+  border-radius: var(--card-radius);
+  box-shadow: none;
+}
+
+/* ── KPI Stats Card (dark variant) ──────────────────────── */
+.stats-card {
+  background: var(--dark-bg);
+  border: none;
+  border-radius: var(--card-radius);
+  box-shadow: none;
+  transition: transform 250ms ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-1px);
+}
+
+/* ── Dashboard Layout (CSS Grid) ────────────────────────── */
+.dashboard {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--light-bg);
+}
+
+/* ── Icon Rail ──────────────────────────────────────────── */
+.icon-rail {
+  background: #12121f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+  gap: 16px;
+  width: 44px;
+}
+
+.icon-rail button {
+  color: #6b7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.icon-rail button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Sidebar ────────────────────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  overflow-y: auto;
+  background: var(--light-bg);
+}
+
+/* ── Main Content ───────────────────────────────────────── */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── Chart Section ──────────────────────────────────────── */
+.chart-section {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 470px;
+  flex-shrink: 0;
+}
+
+.chart-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.chart-tabs button {
+  padding: 6px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.chart-tabs button:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.chart-tabs button:last-child {
+  border-radius: 0 6px 6px 0;
+  border-left: none;
+}
+
+.chart-tabs button:hover {
+  background: #f9fafb;
+}
+
+.chart-body {
+  padding: 16px 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.chart-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 20px 14px;
+  border-top: 1px solid var(--card-border);
+  background: #fafafa;
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
+}
+
+.chart-slider span {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4b5563;
+  white-space: nowrap;
+}
+
+.chart-slider input[type="range"] {
+  flex: 1;
+  height: 2px;
+  background: #d1d5db;
+  border-radius: 999px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.chart-slider input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #111827;
+  border: 2px solid #111827;
+  cursor: pointer;
+}
+
+.chart-slider input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #111827;
+  border: 2px solid #111827;
+  cursor: pointer;
+}
+
+/* ── Bottom Section (Table + Detail) ────────────────────── */
+.bottom-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+
+.table-panel {
+  padding: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.table-panel > div {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ── Table Styles ──────────────────────────────────────── */
+.table-wrapper {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table-wrapper thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.table-wrapper th {
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 10px 12px;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.table-wrapper td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+  font-size: 13px;
+}
+
+.table-wrapper tbody tr {
+  transition: background-color 120ms ease;
+  cursor: pointer;
+}
+
+.table-wrapper tbody tr:hover {
+  background: #f0fdfa;
+}
+
+.table-wrapper tfoot td {
+  padding: 10px 12px;
+  border-bottom: none;
+}
+
+.detail-panel {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  align-items: stretch;
+  justify-content: center;
+}
+
+/* ── Detail Panel Cards ─────────────────────────────────── */
+.detail-name-card {
+  background: #111827;
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 200ms ease;
+}
+
+.detail-name-card p {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.detail-stat-card {
+  background: #111827;
+  border-radius: 8px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.detail-stat-card p {
+  color: var(--teal-accent);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.detail-label {
+  text-align: center;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6b7280;
+  letter-spacing: 0.04em;
+}
+
+.info-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 12px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.info-icon:hover {
+  border-color: #6b7280;
+  color: #4b5563;
+}
+
+/* ── Scrollbar styling ──────────────────────────────────── */
+.sidebar::-webkit-scrollbar,
+.detail-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.detail-panel::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 999px;
+}
+
+/* ── Recharts Overrides ─────────────────────────────────── */
+.recharts-wrapper,
+.recharts-surface {
+  overflow: visible !important;
+}
