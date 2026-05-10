@@ -33,11 +33,23 @@ export default function CategoryBar({ data = [], filter, setFilter }) {
       series={[
         {
           data: seriesData,
-          color: "#00E5FF",
         },
       ]}
-      yAxis={[{ scaleType: "band", data: yLabels }]}
-      margin={{ top: 20, bottom: 30, left: 30, right: 30 }}
+      yAxis={[
+        {
+          scaleType: "band",
+          data: yLabels,
+          tickLabelStyle: {
+            fontSize: 12,
+          },
+          colorMap: {
+            type: "ordinal",
+            values: yLabels, 
+            colors: ["#00E5FF", "#FFB74D", "#BA68C8", "#4DB6AC"],
+          },
+        },
+      ]}
+      margin={{ top: 20, bottom: 30, left: 80, right: 80 }}
       onItemClick={handleItemClick}
       sx={{
         "& .MuiBarElement-root": { cursor: "pointer" },

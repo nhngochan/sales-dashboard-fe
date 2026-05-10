@@ -7,22 +7,14 @@ import {
   getRevenueTrending,
   getSalesByCategory,
   getCountryStats,
-} from "../services/analytics";
+} from "../services/analytics.js";
 
 import StatCard from "../components/StatCard";
 import RevenueChart from "../components/RevenueChart";
 import CategoryBar from "../components/CategoryBar";
 import CountryTable from "../components/CountryTable";
 
-export default function Dashboard() {
-  const [filter, setFilter] = useState({
-    layer: "year",
-    year: null,
-    month: null,
-    date: null,
-    country: null,
-    category: null,
-  });
+export default function ExecutiveDashboard({ filter, setFilter }) {
 
   const { data: kpis, isLoading: kpiLoading } = useQuery({
     queryKey: ["kpis", filter],
@@ -62,60 +54,41 @@ export default function Dashboard() {
 
   return (
     <Box p={2}>
-      {/* NÚT RESET FILTER */}
-      <Box display="flex" justifyContent="flex-end" mb={2}>
-        <Button
-          size="small"
-          variant="outlined"
-          sx={{ color: "#00E5FF", borderColor: "#00E5FF" }}
-          onClick={() =>
-            setFilter({
-              layer: "year",
-              year: null,
-              month: null,
-              date: null,
-              category: null,
-              country: null,
-            })
-          }
-        >
-          Reset
-        </Button>
-      </Box>
-
       {/* HEADER KPI CARDS */}
-      <Grid container spacing={2} alignItems="center" mb={4}>
-        <Grid item xs={2.5} textAlign="center"></Grid>
-        <Grid item xs={9.5}>
-          <Grid container spacing={2}>
-            <Grid item xs={3}>
-              <StatCard
-                title="Revenue"
-                value={`$${formatCompact(kpis.totalRevenue)}`}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <StatCard
-                title="Profit"
-                value={`$${formatCompact(kpis.totalProfit)}`}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <StatCard
-                title="Orders"
-                value={formatCompact(kpis.totalOrders)}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <StatCard title="Return Rate" value={`${currentReturnRate}%`} />
-            </Grid>
-          </Grid>
+      <Grid
+        container
+        spacing={2}
+        mb={4}
+        sx={{
+          //backgroundColor: "background.paper",
+          p: 3,
+          borderRadius: 2,
+          ml: 3.5,
+        }}
+      >
+        <Grid item xs={2}>
+          <StatCard
+            title="Revenue"
+            value={`$${formatCompact(kpis.totalRevenue)}`}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <StatCard
+            title="Profit"
+            value={`$${formatCompact(kpis.totalProfit)}`}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <StatCard title="Orders" value={formatCompact(kpis.totalOrders)} />
+        </Grid>
+        <Grid item xs={2}>
+          <StatCard title="Return Rate" value={`${currentReturnRate}%`} />
         </Grid>
       </Grid>
 
       {/* LINE CHART */}
       <Grid item xs={5}>
-        <Box sx={{ bgcolor: "background.paper", p: 3, borderRadius: 2 }}>
+        <Box sx={{ m: 4, bgcolor: "background.paper", p: 2, borderRadius: 2 }}>
           <Typography
             variant="subtitle1"
             align="center"
@@ -130,7 +103,7 @@ export default function Dashboard() {
 
       {/* BAR CHART */}
       <Grid item xs={5}>
-        <Box sx={{ bgcolor: "background.paper", p: 3, borderRadius: 2 }}>
+        <Box sx={{ m: 4, bgcolor: "background.paper", p: 2, borderRadius: 2 }}>
           <Typography
             variant="subtitle1"
             align="center"
@@ -144,7 +117,7 @@ export default function Dashboard() {
       </Grid>
 
       {/* TABLE */}
-      <Box sx={{ mt: 3, bgcolor: "background.paper", p: 3, borderRadius: 2 }}>
+      <Box sx={{ m: 4, bgcolor: "background.paper", p: 2, borderRadius: 2 }}>
         <Typography
           variant="subtitle1"
           align="center"

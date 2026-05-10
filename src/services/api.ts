@@ -33,7 +33,7 @@ export interface CustomerRecord {
 /* ── base config ────────────────────────────────────────── */
 
 export const api = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: "http://localhost:5001/api/v1",
   timeout: 15_000,
 });
 

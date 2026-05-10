@@ -5,10 +5,10 @@ export default function StatCard({ title, value }) {
     <Card 
       sx={{ 
         borderRadius: 2,
-        bgcolor: '#000000', 
+        bgcolor: '#1a1a2e', 
         border: '1px solid #1e293b',
         height: '100%',
-        width: 300,
+        width: 330,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

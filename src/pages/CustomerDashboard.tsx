@@ -15,7 +15,7 @@ import {
   type TrendPoint,
   type DistributionItem,
   type CustomerRecord,
-} from "../services/api";
+} from "../services/api.ts";
 
 /* ── chart config ───────────────────────────────────────── */
 
@@ -42,7 +42,7 @@ function formatStat(value: number, prefix = ""): string {
 
 /* ── Dashboard page ─────────────────────────────────────── */
 
-export default function Dashboard() {
+export default function CustomerDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState<StatsResponse | null>(null);
