@@ -176,32 +176,96 @@ body {
   white-space: nowrap;
 }
 
-.chart-slider input[type="range"] {
+/* ── Dual-handle range slider track ────────────────────── */
+.range-slider-track {
+  position: relative;
   flex: 1;
-  height: 2px;
+  height: 4px;
   background: #d1d5db;
   border-radius: 999px;
-  appearance: none;
-  cursor: pointer;
 }
 
-.chart-slider input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+.range-slider-fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
   background: #111827;
-  border: 2px solid #111827;
-  cursor: pointer;
+  border-radius: 999px;
+  pointer-events: none;
 }
 
-.chart-slider input[type="range"]::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+/* Both thumbs share the same overlay positioning */
+.range-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  pointer-events: none;
+  /* let clicks pass through except thumb */
+  margin: 0;
+  padding: 0;
+  height: 4px;
+}
+
+.range-thumb::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 4px;
+}
+
+.range-thumb::-moz-range-track {
+  background: transparent;
+  height: 4px;
+}
+
+.range-thumb::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
   border-radius: 50%;
   background: #111827;
-  border: 2px solid #111827;
+  border: 3px solid #111827;
   cursor: pointer;
+  pointer-events: auto;
+  /* re-enable interaction on the thumb */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.range-thumb::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #111827;
+  border: 3px solid #111827;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.range-thumb::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.range-thumb::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Ensure the high thumb is above the low thumb for click priority */
+.range-thumb--high {
+  z-index: 2;
+}
+
+.range-thumb--low {
+  z-index: 1;
 }
 
 /* ── Bottom Section (Table + Detail) ────────────────────── */

@@ -34,7 +34,7 @@ interface DonutTooltipProps {
 
 /* ── constants ──────────────────────────────────────────── */
 
-const DEFAULT_COLORS = ["#22d3ee", "#64748b", "#facc15", "#1e293b"];
+const DEFAULT_COLORS = ["#22d3ee", "#64748b", "#facc15", "#1e293b", "#5433ff"];
 const RADIAN = Math.PI / 180;
 
 /* ── helpers ────────────────────────────────────────────── */

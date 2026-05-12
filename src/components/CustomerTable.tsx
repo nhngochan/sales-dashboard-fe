@@ -27,8 +27,12 @@ export default function CustomerTable({ data, onHoverCustomer, loading = false }
   }
 
   const dataArray = Array.isArray(data) ? data : [];
-  const totalOrders = dataArray.reduce((sum, c) => sum + (Number(c.orders) || 0), 0);
-  const totalRevenue = dataArray.reduce((sum, c) => sum + (Number(c.revenue) || 0), 0);
+
+  // Sort by revenue descending, take top 10
+  const sorted = [...dataArray].sort((a, b) => b.revenue - a.revenue).slice(0, 10);
+
+  const totalOrders = sorted.reduce((sum, c) => sum + (Number(c.orders) || 0), 0);
+  const totalRevenue = sorted.reduce((sum, c) => sum + (Number(c.revenue) || 0), 0);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, minWidth: 0, overflow: "hidden" }}>
@@ -39,19 +43,19 @@ export default function CustomerTable({ data, onHoverCustomer, loading = false }
               <th>CustomerKey</th>
               <th>Full Name</th>
               <th style={{ textAlign: "right" }}>Orders</th>
-              <th style={{ textAlign: "right" }}>Revenue</th>
+              <th style={{ textAlign: "right" }}>Revenue ▼</th>
             </tr>
           </thead>
 
           <tbody>
-            {dataArray.length === 0 ? (
+            {sorted.length === 0 ? (
               <tr>
                 <td colSpan={4} style={{ textAlign: "center", color: "#6b7280", padding: "32px 0" }}>
                   No customer records found
                 </td>
               </tr>
             ) : (
-              dataArray.map((customer) => (
+              sorted.map((customer) => (
                 <tr
                   key={customer.id}
                   onMouseEnter={() => onHoverCustomer(customer)}

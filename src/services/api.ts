@@ -19,7 +19,7 @@ export interface DistributionItem {
 }
 
 export interface DistributionResponse {
-  income: DistributionItem[];
+  gender: DistributionItem[];
   occupation: DistributionItem[];
 }
 
@@ -96,25 +96,25 @@ export async function getCustomerTrend(): Promise<TrendPoint[]> {
 }
 
 /**
- * Fetches distribution data using the dedicated income-level and occupation endpoints.
- * - income → /orders-by-income-level (groups by AnnualIncome bracket)
+ * Fetches distribution data using gender and occupation endpoints.
+ * - gender → /orders-by-gender (groups by customer gender)
  * - occupation → /orders-by-occupation (groups by customer occupation)
  */
 export async function getDistribution(): Promise<DistributionResponse> {
-  const [incomeRes, occupationRes] = await Promise.all([
-    api.get("/analytics/orders-by-income-level"),
+  const [genderRes, occupationRes] = await Promise.all([
+    api.get("/analytics/orders-by-gender"),
     api.get("/analytics/orders-by-occupation"),
   ]);
 
-  const incomeRaw = incomeRes.data?.data ?? incomeRes.data;
+  const genderRaw = genderRes.data?.data ?? genderRes.data;
   const occupationRaw = occupationRes.data?.data ?? occupationRes.data;
 
-  const incomeArr = Array.isArray(incomeRaw) ? incomeRaw : [];
+  const genderArr = Array.isArray(genderRaw) ? genderRaw : [];
   const occupationArr = Array.isArray(occupationRaw) ? occupationRaw : [];
 
   return {
-    income: incomeArr.map((d: Record<string, unknown>) => ({
-      name: String(d.incomeLevel ?? d.income_level ?? "Unknown"),
+    gender: genderArr.map((d: Record<string, unknown>) => ({
+      name: String(d.Gender ?? d.gender ?? "Unknown"),
       value: toNum(d.totalOrders ?? d.orders ?? d.count),
     })),
     occupation: occupationArr.map((d: Record<string, unknown>) => ({
@@ -122,6 +122,63 @@ export async function getDistribution(): Promise<DistributionResponse> {
       value: toNum(d.orders ?? d.totalOrders ?? d.count),
     })),
   };
+}
+
+/**
+ * Raw sales-detail row — preserves year, gender, occupation for client-side filtering.
+ */
+export interface SalesDetailRow {
+  customerName: string;
+  orderNumber: string;
+  orderQuantity: number;
+  year: number;
+  gender: string;
+  occupation: string;
+}
+
+/**
+ * Fetches raw sales-detail rows with year, gender, occupation preserved.
+ * Fetches all years in parallel to get complete dataset (the backend
+ * orders by year DESC, so a single call with limit would miss older years).
+ */
+export async function getRawSalesDetail(): Promise<SalesDetailRow[]> {
+  const years = [2020, 2021, 2022];
+
+  // Fetch each year in parallel to get complete data
+  const responses = await Promise.all(
+    years.map((year) =>
+      api.get("/analytics/sales-detail", {
+        params: { limit: 50000, page: 1, year },
+      })
+    )
+  );
+
+  const allRows: SalesDetailRow[] = [];
+
+  for (const response of responses) {
+    const payload = response.data?.data ?? response.data ?? {};
+    const rows = Array.isArray(payload.items)
+      ? payload.items
+      : Array.isArray(payload.rows)
+        ? payload.rows
+        : Array.isArray(payload)
+          ? payload
+          : [];
+
+    for (const row of rows) {
+      allRows.push({
+        customerName: String(row.customerName ?? row.customer_name ?? "Unknown"),
+        orderNumber: String(row.orderNumber ?? row.order_number ?? ""),
+        orderQuantity: toNum(row.orderQuantity ?? row.order_quantity),
+        year: toNum(row.year ?? row.Year),
+        gender: String(row.gender ?? row.Gender ?? "Unknown"),
+        occupation: String(row.occupation ?? row.Occupation ?? "Unknown"),
+      });
+    }
+  }
+
+  console.log(`[API] getRawSalesDetail: fetched ${allRows.length} rows across years ${years.join(", ")}`);
+  return allRows;
 }
 
 /**
@@ -170,3 +227,4 @@ export async function getTopCustomers(): Promise<CustomerRecord[]> {
   customers.sort((a, b) => b.orders - a.orders);
   return customers.slice(0, 100);
 }
+
