@@ -207,10 +207,10 @@ body {
 /* ── Bottom Section (Table + Detail) ────────────────────── */
 .bottom-section {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 2fr;
   gap: 0;
   overflow: hidden;
-  flex: 1;
+  flex: 3;
   min-height: 0;
 }
 
@@ -222,7 +222,7 @@ body {
   min-height: 0;
 }
 
-.table-panel > div {
+.table-panel>div {
   flex: 1;
   overflow-y: auto;
   min-height: 0;
@@ -275,10 +275,10 @@ body {
 }
 
 .detail-panel {
-  padding: 20px 16px;
+  padding: 24px 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   overflow-y: auto;
   align-items: stretch;
   justify-content: center;
@@ -287,15 +287,15 @@ body {
 /* ── Detail Panel Cards ─────────────────────────────────── */
 .detail-name-card {
   background: #111827;
-  border-radius: 8px;
-  padding: 10px 12px;
+  border-radius: 10px;
+  padding: 14px 16px;
   text-align: center;
   transition: all 200ms ease;
 }
 
 .detail-name-card p {
   color: white;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.3;
@@ -303,24 +303,24 @@ body {
 
 .detail-stat-card {
   background: #111827;
-  border-radius: 8px;
-  padding: 10px 0;
+  border-radius: 10px;
+  padding: 14px 0;
   text-align: center;
 }
 
 .detail-stat-card p {
   color: var(--teal-accent);
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 800;
 }
 
 .detail-label {
   text-align: center;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   color: #6b7280;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .info-icon {

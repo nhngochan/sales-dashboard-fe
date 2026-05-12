@@ -103,7 +103,8 @@ export default function CustomerDashboard() {
       )}
 
       {/* ── Sidebar ───────────────────────────────────────── */}
-      <aside className="sidebar">
+      <aside className="sidebar" style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "20px", gap: "16px" }}>
+
         <StatsCard
           title="Unique Customers"
           value={stats ? formatStat(stats.customers) : "—"}
