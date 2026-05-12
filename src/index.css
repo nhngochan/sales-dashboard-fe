@@ -275,10 +275,10 @@ body {
 }
 
 .detail-panel {
-  padding: 24px 24px;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   overflow-y: auto;
   align-items: stretch;
   justify-content: center;
@@ -288,14 +288,14 @@ body {
 .detail-name-card {
   background: #111827;
   border-radius: 10px;
-  padding: 14px 16px;
+  padding: 10px 12px;
   text-align: center;
   transition: all 200ms ease;
 }
 
 .detail-name-card p {
   color: white;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.3;
@@ -304,19 +304,19 @@ body {
 .detail-stat-card {
   background: #111827;
   border-radius: 10px;
-  padding: 14px 0;
+  padding: 10px 0;
   text-align: center;
 }
 
 .detail-stat-card p {
   color: var(--teal-accent);
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 800;
 }
 
 .detail-label {
   text-align: center;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   color: #6b7280;

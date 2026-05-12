@@ -113,14 +113,14 @@ export default function DonutChart({
 
   const total = safeData.reduce((sum, d) => sum + (Number(d.value) || 0), 0);
   return (
-    <div className="card" style={{ padding: "16px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ padding: "12px 4px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "transparent" }}>
       {/* Title */}
-      <h3 className="text-center text-gray-700 text-xs font-semibold mb-2 w-full">
+      <h3 className="text-center text-gray-700 text-xs font-semibold mb-1 w-full">
         {title}
       </h3>
 
       {/* Chart */}
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={230}>
         <PieChart>
           <Pie
             data={chartData}
