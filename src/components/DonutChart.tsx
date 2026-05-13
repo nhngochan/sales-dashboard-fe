@@ -67,7 +67,7 @@ function renderOuterLabel(props: PieLabelRenderProps) {
       className="fill-gray-600"
       style={{ fontSize: 9, fontWeight: 600 }}
     >
-      {`${name} ${formatShort(value)}`}
+      {(name === "F" ? "Female" : name === "M" ? "Male" : name)} {formatShort(value)}
     </text>
   );
 }
@@ -82,10 +82,16 @@ function DonutTooltipContent({ active, payload, total = 0 }: DonutTooltipProps) 
   const pct = total > 0 ? ((val / total) * 100).toFixed(1) : "0";
 
   return (
-    <div className="bg-[#111] border border-gray-700 rounded-lg px-3 py-2 shadow-xl text-sm">
-      <p className="text-white font-semibold">{item.name}</p>
-      <p className="text-gray-300">{val.toLocaleString()}</p>
-      <p className="text-gray-400 text-xs">{pct}%</p>
+    <div className="bg-white border border-gray-700 rounded-lg px-3 py-2 shadow-xl text-sm">
+      <p className="text-gray-900 font-semibold">
+        {item.name === "F"
+          ? "Female"
+          : item.name === "M"
+            ? "Male"
+            : item.name}
+      </p>
+      <p className="text-black-300">{val.toLocaleString()}</p>
+      <p className="text-black-400 text-xs">{pct}%</p>
     </div>
   );
 }
@@ -109,7 +115,7 @@ export default function DonutChart({
   const safeData = Array.isArray(data) ? data : [];
   const isEmpty = safeData.length === 0;
   const chartData = isEmpty ? [{ name: "No Data", value: 1 }] : safeData;
-  const chartColors = isEmpty ? ["#374151"] : colors;
+  const chartColors = isEmpty ? ["#f2f5faff"] : colors;
 
   const total = safeData.reduce((sum, d) => sum + (Number(d.value) || 0), 0);
   return (
